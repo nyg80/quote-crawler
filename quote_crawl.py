@@ -28,6 +28,10 @@ pageSrc = response.read()
 soup = BeautifulSoup(pageSrc)
 
 while True:
+	#text extraction & analysis portion of code
+	pText = soup.find_all('p').getText()
+
+	#crawling portion of code
 	for link in soup.find_all('a'):
 		#convert relative links to absolute links, so we can determine internal vs external links
 		if link.get('href') is not None:
