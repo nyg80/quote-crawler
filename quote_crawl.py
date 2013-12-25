@@ -12,6 +12,9 @@ inputFormat = re.compile("^http[s]*://.+\..+$")
 toVisit = {}
 visitedPages = {}
 
+#key will be the quote, value will be list of pages it appears on
+quote = {}
+
 #get the input domain from the user, do some basic validation on it
 while 1:
 	domainToCrawl = raw_input('Please enter a domain to crawl for quotes (e.g. http://stackoverflow.com) : ')
@@ -30,6 +33,10 @@ soup = BeautifulSoup(pageSrc)
 while True:
 	#text extraction & analysis portion of code
 	pText = soup.find_all('p').getText()
+
+	pQuotes = re.findall(r'\"(.+?)\"',pText)
+	for q in pQuotes:
+		print q
 
 	#crawling portion of code
 	for link in soup.find_all('a'):
