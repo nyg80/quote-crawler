@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from collections import defaultdict
 #from HTMLParser import HTMLParser
 import urllib2
 import re
@@ -13,7 +14,7 @@ toVisit = {}
 visitedPages = {}
 
 #key will be the quote, value will be list of pages it appears on
-quote = {}
+quote = defaultdict(list)
 
 #get the input domain from the user, do some basic validation on it
 while 1:
@@ -37,6 +38,8 @@ while True:
 	pQuotes = re.findall(r'\"(.+?)\"',pText)
 	for q in pQuotes:
 		print q
+		if q in quote:
+			quote[q].append(nextPage[1])
 
 	#crawling portion of code
 	for link in soup.find_all('a'):
